@@ -7,7 +7,7 @@ class ErrorResponse extends MandrillResponse {
   String message;
 
   @override
-  decode(KeyedArchive object) {
+  void decode(KeyedArchive object) {
     super.decode(object);
     status = object.decode('status');
     code = object.decode('code');

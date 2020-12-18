@@ -10,14 +10,14 @@ import 'package:test/test.dart';
 import '../mocks.dart';
 import '../test_data.dart' as test_data;
 
-main() {
+void main() {
   group('Messages resource', () {
     Messages messages;
     MockMandrillClient mockClient;
 
     setUp(() {
-      mockClient = new MockMandrillClient();
-      messages = new Messages(mockClient);
+      mockClient = MockMandrillClient();
+      messages = Messages(mockClient);
     });
 
     group('.send', () {
@@ -27,14 +27,13 @@ main() {
             .thenAnswer((invocation) {
           final response =
               invocation.positionalArguments[2] as SentMessagesResponse;
-          return new Future.value(defaultResponseParser<SentMessagesResponse>(
+          return Future.value(defaultResponseParser<SentMessagesResponse>(
               response, jsonDecode(test_data.sendMessageResponse)));
         });
 
-        final message =
-            new OutgoingMessage(text: 'text content', inlineCss: true);
+        final message = OutgoingMessage(text: 'text content', inlineCss: true);
         final response = await messages.send(message,
-            sendAsync: true, sendAt: new DateTime.utc(2029, 1, 1));
+            sendAsync: true, sendAt: DateTime.utc(2029, 1, 1));
 
         final verificationResult = verify(mockClient.call<SentMessagesResponse>(
             'messages/send', captureAny, captureAny));
@@ -61,11 +60,11 @@ main() {
             .thenAnswer((invocation) {
           final response =
               invocation.positionalArguments[2] as SentMessagesResponse;
-          return new Future.value(defaultResponseParser<SentMessagesResponse>(
+          return Future.value(defaultResponseParser<SentMessagesResponse>(
               response, jsonDecode(test_data.sendMessageResponse)));
         });
 
-        final message = new OutgoingMessage(text: 'text content');
+        final message = OutgoingMessage(text: 'text content');
         final response = await messages.sendTemplate(
           'my template name',
           message,

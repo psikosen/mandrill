@@ -1,7 +1,7 @@
 import 'package:mandrill/src/utils.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('utils', () {
     group('toVarList()', () {
       test('properly encodes maps', () {

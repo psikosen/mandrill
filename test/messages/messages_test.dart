@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 import '../test_data.dart' as test_data;
 
-main() {
+void main() {
   group('Messages', () {
     group('RecipientType', () {
       test('.fromString() works with all types', () {
@@ -20,7 +20,7 @@ main() {
     group('Recipient', () {
       test('properly encodes object', () {
         final recipient =
-            new Recipient(email: 'dr.fr@nkenstein.com', name: 'Mr. F');
+            Recipient(email: 'dr.fr@nkenstein.com', name: 'Mr. F');
         final archive = KeyedArchive.archive(recipient);
 
         expect(archive['email'], recipient.email);
@@ -28,7 +28,7 @@ main() {
         expect(archive['type'], RecipientType.to.id);
       });
       test('properly encodes different types', () {
-        final recipient = new Recipient(
+        final recipient = Recipient(
             email: 'dr.fr@nkenstein.com',
             name: 'Mr. F',
             type: RecipientType.bcc);
@@ -38,7 +38,7 @@ main() {
     });
     group('RecipientMergeVars', () {
       test('properly encodes object', () {
-        final recipient = new RecipientMergeVars(
+        final recipient = RecipientMergeVars(
             email: 'recip@ient.com', vars: {'foo': 'bar', 'foo2': 'bar2'});
         final archive = KeyedArchive.archive(recipient);
 
@@ -51,7 +51,7 @@ main() {
     });
     group('RecipientMetadata', () {
       test('properly encodes object', () {
-        final recipient = new RecipientMetadata(
+        final recipient = RecipientMetadata(
             email: 'recip@ient.com', values: {'foo': 'bar', 'foo2': 'bar2'});
         final archive = KeyedArchive.archive(recipient);
 
@@ -64,7 +64,7 @@ main() {
     });
     group('File', () {
       test('properly encodes object', () {
-        final recipient = new File(
+        final recipient = File(
             type: 'text/plain',
             name: 'myfile.txt',
             content: 'ZXhhbXBsZSBmaWxl');
@@ -77,21 +77,21 @@ main() {
     });
     group('OutgoingMessage', () {
       test('properly encodes object', () {
-        final recipient = new OutgoingMessage(
+        final recipient = OutgoingMessage(
           html: '<p>Example HTML content</p>',
           text: 'Example text content',
           subject: 'example subject',
           fromEmail: 'message.from_email@example.com',
           fromName: 'Example Name',
           to: [
-            new Recipient(
+            Recipient(
                 email: 'recipient.email@example.com', name: 'Recipient Name'),
-            new Recipient(
+            Recipient(
                 email: 'recipient2.email@example.com',
                 name: 'Recipient Name 2',
                 type: RecipientType.bcc),
           ],
-          headers: {"Reply-To": "message.reply@example.com"},
+          headers: {'Reply-To': 'message.reply@example.com'},
           important: false,
           trackOpens: true,
           trackClicks: false,
@@ -109,28 +109,28 @@ main() {
           mergeLanguage: 'mailchimp',
           globalMergeVars: {'merge1': 'merge1 content'},
           mergeVars: [
-            new RecipientMergeVars(
+            RecipientMergeVars(
                 email: 'recipient.email@example.com',
                 vars: {'merge2': 'merge2 content'})
           ],
           tags: ['password-resets'],
           subaccount: 'customer-123',
-          googleAnalyticsDomains: ["example.com"],
+          googleAnalyticsDomains: ['example.com'],
           googleAnalyticsCampaign: 'message.from_email@example.com',
-          metadata: {"website": "www.example.com"},
+          metadata: {'website': 'www.example.com'},
           recipientMetadata: [
-            new RecipientMetadata(
+            RecipientMetadata(
                 email: 'recipient.email@example.com',
-                values: {"user_id": 123456})
+                values: {'user_id': 123456})
           ],
           attachments: [
-            new File(
+            File(
                 type: 'text/plain',
                 name: 'myfile.txt',
                 content: 'ZXhhbXBsZSBmaWxl')
           ],
           images: [
-            new File(
+            File(
                 type: 'image/png',
                 name: 'image.png',
                 content: 'ZXhhbXBsZSBmaWxl')
@@ -144,7 +144,7 @@ main() {
         expect(archiveJson, testJson);
       });
       test('properly handles null values', () {
-        final recipient = new OutgoingMessage();
+        final recipient = OutgoingMessage();
         final archive = KeyedArchive.archive(recipient);
 
         final archiveJson = jsonDecode(jsonEncode(archive));

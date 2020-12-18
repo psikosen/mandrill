@@ -3,8 +3,6 @@ version: 1.1.4
 description: An unofficial but maintained API client for the Mandrill email as a service product.
 environment:
   sdk: ">=1.8.0 <3.0.0"
-authors:
-- Matias Meno <matias.meno@exit.live>
 homepage: https://gitlab.com/exitlive/mandrill-dart
 dependencies:
   codable: ^1.0.0
@@ -17,3 +15,4 @@ dev_dependencies:
   mockito: ^4.0.0
   grinder: ^0.8.3
   grind_publish: ^1.0.0
+  pedantic: ^1.9.0

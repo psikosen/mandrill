@@ -15,18 +15,18 @@ class MandrillOptions {
   final Map<String, String> headers;
 
   const MandrillOptions({
-    this.scheme: 'https',
-    this.host: 'mandrillapp.com',
-    this.port: 443,
-    this.pathPrefix: '/api/1.0/',
-    this.headers: const {
+    this.scheme = 'https',
+    this.host = 'mandrillapp.com',
+    this.port = 443,
+    this.pathPrefix = '/api/1.0/',
+    this.headers = const {
       'Content-Type': 'application/json',
       'User-Agent': 'Mandrill-Dart/1.0.4'
     },
   });
 }
 
-typedef T ResponseParser<T extends MandrillResponse>(
+typedef ResponseParser<T extends MandrillResponse> = T Function(
     T responseCoding, dynamic response);
 
 /// The default [ResponseParser] simply takes the response Map, and invokes
@@ -41,7 +41,7 @@ T defaultResponseParser<T extends MandrillResponse>(
   } else if (response is! Map<String, dynamic>) {
     // If this exception is thrown here, it probably means that you need to
     // provide your own ResponseParser (or Mandrill is bugging out).
-    throw new InvalidResponseException('The returned response was not a Map.');
+    throw InvalidResponseException('The returned response was not a Map.');
   }
   final archive = KeyedArchive.unarchive(response as Map<String, dynamic>);
   return responseCoding..decode(archive);
@@ -50,26 +50,26 @@ T defaultResponseParser<T extends MandrillResponse>(
 /// The base class for the Mandrill HTTP client.
 /// There is a server and a browser implementation of this client.
 abstract class MandrillClient {
-  final _log = new Logger('MandrillClient');
+  final _log = Logger('MandrillClient');
 
   final String apiKey;
 
   final MandrillOptions options;
 
   MandrillClient(this.apiKey, [MandrillOptions options])
-      : this.options = options ?? const MandrillOptions();
+      : options = options ?? const MandrillOptions();
 
   Future<T> call<T extends MandrillResponse>(
       String path, Map body, T responseCoding,
       {ResponseParser<T> responseParser}) async {
-    final uri = new Uri(
+    final uri = Uri(
       scheme: options.scheme,
       host: options.host,
       port: options.port,
       path: '${options.pathPrefix}$path.json',
     );
 
-    final bodyWithKey = new Map.from(body)..['key'] = apiKey;
+    final bodyWithKey = Map.from(body)..['key'] = apiKey;
 
     _log.finer('Making Mandrill request to $uri');
     final responseMap =
@@ -95,13 +95,13 @@ abstract class MandrillClient {
       try {
         final errorArchive =
             KeyedArchive.unarchive(jsonDecode(body) as Map<String, dynamic>);
-        final errorResponse = new ErrorResponse()..decode(errorArchive);
+        final errorResponse = ErrorResponse()..decode(errorArchive);
 
         error = MandrillException.fromError(errorResponse);
       } catch (e) {
         _log.warning(
             'The body returned by Mandrill could not be parsed properly: $e');
-        error = new InvalidResponseException(body);
+        error = InvalidResponseException(body);
       }
       throw error;
     }

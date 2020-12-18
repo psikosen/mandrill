@@ -24,7 +24,7 @@ class Messages {
   ///   a positive balance.
   Future<SentMessagesResponse> send(
     OutgoingMessage message, {
-    bool sendAsync: false,
+    bool sendAsync = false,
     String ipPool,
     DateTime sendAt,
   }) async {
@@ -35,7 +35,7 @@ class Messages {
       'send_at': MandrillClient.formatDate(sendAt),
     };
 
-    return await client.call('messages/send', body, new SentMessagesResponse());
+    return await client.call('messages/send', body, SentMessagesResponse());
   }
 
   /// - `templateName`: the immutable name or slug of a template that exists in
@@ -51,7 +51,7 @@ class Messages {
     String templateName,
     OutgoingMessage message, {
     Map<String, String> templateContent,
-    bool sendAsync: false,
+    bool sendAsync = false,
     String ipPool,
     DateTime sendAt,
   }) async {
@@ -65,6 +65,6 @@ class Messages {
     };
 
     return await client.call(
-        'messages/send-template', body, new SentMessagesResponse());
+        'messages/send-template', body, SentMessagesResponse());
   }
 }

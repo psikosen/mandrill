@@ -19,23 +19,22 @@ class TestMandrillClient extends MandrillClient {
   }
 }
 
-main() {
+void main() {
   group('Client', () {
     final apiKey = 'test-api-key';
     MandrillClient mandrillClient;
 
     setUp(() {
-      mandrillClient = new TestMandrillClient(apiKey);
+      mandrillClient = TestMandrillClient(apiKey);
     });
 
     group('defaultResponseParser()', () {
       test('properly handles Maps', () {
-        final response =
-            defaultResponseParser(new SentMessage(), {'_id': 'my-id'});
+        final response = defaultResponseParser(SentMessage(), {'_id': 'my-id'});
         expect(response.id, 'my-id');
       });
       test('properly handles Lists', () {
-        final response = defaultResponseParser(new SentMessagesResponse(), [
+        final response = defaultResponseParser(SentMessagesResponse(), [
           {'_id': 'my-id'},
           {'_id': 'my-id2'}
         ]);
@@ -44,10 +43,10 @@ main() {
         expect(response.sentMessages.last.id, 'my-id2');
       });
       test('throws if the response cannot be parsed.', () {
-        expect(() => defaultResponseParser(new SentMessage(), 'Invalid'),
+        expect(() => defaultResponseParser(SentMessage(), 'Invalid'),
             throwsA(TypeMatcher<InvalidResponseException>()));
 
-        expect(() => defaultResponseParser(new SentMessage(), {}),
+        expect(() => defaultResponseParser(SentMessage(), {}),
             throwsA(TypeMatcher<InvalidResponseException>()),
             reason: 'Should throw because the Map is not <String, dynamic>');
       });
@@ -55,7 +54,7 @@ main() {
 
     group('.formatDate()', () {
       test('handles DateTime properly', () {
-        final date = new DateTime.utc(2000, 1, 2, 3, 4, 5);
+        final date = DateTime.utc(2000, 1, 2, 3, 4, 5);
         expect(MandrillClient.formatDate(date), '2000-01-02 03:04:05');
       });
       test('handles null properly', () {
@@ -94,7 +93,7 @@ main() {
       test('makes correct request and returns properly parsed message',
           () async {
         final response = await mandrillClient.call<SentMessage>(
-            'foo/bar', {'test': 'value'}, new SentMessage());
+            'foo/bar', {'test': 'value'}, SentMessage());
 
         expect(response, TypeMatcher<SentMessage>());
         expect(response.id, 'test-id');

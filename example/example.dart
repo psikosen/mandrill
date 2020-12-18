@@ -8,19 +8,19 @@ void main() async {
     ..level = Level.ALL
     ..onRecord.listen(print);
 
-  final log = new Logger('Mandrill Example');
+  final log = Logger('Mandrill Example');
 
   final mandrill = createMandrill(apiKey);
 
   final recipients = [
-    new Recipient(email: 'customer1@example.com', name: 'Customer 1'),
-    new Recipient(
+    Recipient(email: 'customer1@example.com', name: 'Customer 1'),
+    Recipient(
         email: 'customer2@example.com',
         name: 'Customer 2',
         type: RecipientType.bcc),
   ];
 
-  final message = new OutgoingMessage(
+  final message = OutgoingMessage(
     html: '<h1>Welcome to our website</h1>',
     text: 'WELCOME TO OUR WEBSITE',
     fromEmail: 'good@website.com',

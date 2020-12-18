@@ -11,7 +11,8 @@ class RecipientType {
 
   const RecipientType._(this.id);
 
-  static fromString(String id) => values.firstWhere((type) => type.id == id);
+  static RecipientType fromString(String id) =>
+      values.firstWhere((type) => type.id == id);
 }
 
 class Recipient extends Encoding {
@@ -22,7 +23,7 @@ class Recipient extends Encoding {
   Recipient({
     @required this.email,
     this.name,
-    this.type: RecipientType.to,
+    this.type = RecipientType.to,
   });
 
   @override
@@ -238,9 +239,9 @@ class SentMessagesResponse extends MandrillResponse {
   List<SentMessage> sentMessages;
 
   @override
-  decode(KeyedArchive object) {
+  void decode(KeyedArchive object) {
     super.decode(object);
-    sentMessages = object.decodeObjects('list', () => new SentMessage());
+    sentMessages = object.decodeObjects('list', () => SentMessage());
   }
 }
 
@@ -251,7 +252,7 @@ class SentMessage extends MandrillResponse {
   SentMessageRejectReason rejectReason;
 
   @override
-  decode(KeyedArchive object) {
+  void decode(KeyedArchive object) {
     super.decode(object);
     id = object.decode('_id');
     email = object.decode('email');

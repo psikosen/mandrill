@@ -8,65 +8,65 @@ class MandrillException implements Exception {
   factory MandrillException.fromError(ErrorResponse error) {
     switch (error.name) {
       case 'ValidationError':
-        return new ValidationException._(error.message);
+        return ValidationException._(error.message);
       case 'Invalid_Key':
-        return new InvalidKeyException._(error.message);
+        return InvalidKeyException._(error.message);
       case 'PaymentRequired':
-        return new PaymentRequiredException._(error.message);
+        return PaymentRequiredException._(error.message);
       case 'Unknown_Subaccount':
-        return new UnknownSubaccountException._(error.message);
+        return UnknownSubaccountException._(error.message);
       case 'Unknown_Template':
-        return new UnknownTemplateException._(error.message);
+        return UnknownTemplateException._(error.message);
       case 'ServiceUnavailable':
-        return new ServiceUnavailableException._(error.message);
+        return ServiceUnavailableException._(error.message);
       case 'Unknown_Message':
-        return new UnknownMessageException._(error.message);
+        return UnknownMessageException._(error.message);
       case 'Invalid_Tag_Name':
-        return new InvalidTagNameException._(error.message);
+        return InvalidTagNameException._(error.message);
       case 'Invalid_Reject':
-        return new InvalidRejectException._(error.message);
+        return InvalidRejectException._(error.message);
       case 'Unknown_Sender':
-        return new UnknownSenderException._(error.message);
+        return UnknownSenderException._(error.message);
       case 'Unknown_Url':
-        return new UnknownUrlException._(error.message);
+        return UnknownUrlException._(error.message);
       case 'Unknown_TrackingDomain':
-        return new UnknownTrackingDomainException._(error.message);
+        return UnknownTrackingDomainException._(error.message);
       case 'Invalid_Template':
-        return new InvalidTemplateException._(error.message);
+        return InvalidTemplateException._(error.message);
       case 'Unknown_Webhook':
-        return new UnknownWebhookException._(error.message);
+        return UnknownWebhookException._(error.message);
       case 'Unknown_InboundDomain':
-        return new UnknownInboundDomainException._(error.message);
+        return UnknownInboundDomainException._(error.message);
       case 'Unknown_InboundRoute':
-        return new UnknownInboundRouteException._(error.message);
+        return UnknownInboundRouteException._(error.message);
       case 'Unknown_Export':
-        return new UnknownExportException._(error.message);
+        return UnknownExportException._(error.message);
       case 'IP_ProvisionLimit':
-        return new IpProvisionLimitException._(error.message);
+        return IpProvisionLimitException._(error.message);
       case 'Unknown_Pool':
-        return new UnknownPoolException._(error.message);
+        return UnknownPoolException._(error.message);
       case 'NoSendingHistory':
-        return new NoSendingHistoryException._(error.message);
+        return NoSendingHistoryException._(error.message);
       case 'PoorReputation':
-        return new PoorReputationException._(error.message);
+        return PoorReputationException._(error.message);
       case 'Unknown_IP':
-        return new UnknownIpException._(error.message);
+        return UnknownIpException._(error.message);
       case 'Invalid_EmptyDefaultPool':
-        return new InvalidEmptyDefaultPoolException._(error.message);
+        return InvalidEmptyDefaultPoolException._(error.message);
       case 'Invalid_DeleteDefaultPool':
-        return new InvalidDeleteDefaultPoolException._(error.message);
+        return InvalidDeleteDefaultPoolException._(error.message);
       case 'Invalid_DeleteNonEmptyPool':
-        return new InvalidDeleteNonEmptyPoolException._(error.message);
+        return InvalidDeleteNonEmptyPoolException._(error.message);
       case 'Invalid_CustomDNS':
-        return new InvalidCustomDnsException._(error.message);
+        return InvalidCustomDnsException._(error.message);
       case 'Invalid_CustomDNSPending':
-        return new InvalidCustomDnsPendingException._(error.message);
+        return InvalidCustomDnsPendingException._(error.message);
       case 'Metadata_FieldLimit':
-        return new MetadataFieldLimitException._(error.message);
+        return MetadataFieldLimitException._(error.message);
       case 'Unknown_MetadataField':
-        return new UnknownMetadataFieldException._(error.message);
+        return UnknownMetadataFieldException._(error.message);
       default:
-        return new MandrillException._(error.name + ': ' + error.message);
+        return MandrillException._(error.name + ': ' + error.message);
     }
   }
 

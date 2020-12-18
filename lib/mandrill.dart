@@ -16,5 +16,5 @@ class Mandrill {
 
   final Messages messages;
 
-  Mandrill(this.client) : messages = new Messages(client);
+  Mandrill(this.client) : messages = Messages(client);
 }

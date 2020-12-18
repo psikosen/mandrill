@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 import '../test_data.dart' as test_data;
 
-main() {
+void main() {
   group('Error', () {
     group('ErrorResponse', () {
       test('properly decodes object', () {
