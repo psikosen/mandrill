@@ -11,6 +11,9 @@ export 'package:mandrill/messages.dart';
 
 part 'src/resources/messages.dart';
 
+/// The main class for mandrill.
+///
+/// You can use the helper function `createMandrill()` to get up and running.
 class Mandrill {
   final MandrillClient client;
 
