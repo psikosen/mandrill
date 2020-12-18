@@ -1,6 +1,10 @@
 # Changelog
 
 
+## 1.1.4
+
+- Upgrade intl dependency to include 0.17.0.
+
 ## 1.1.3
 
 - Upgrade intl dependency to include the latest version.
