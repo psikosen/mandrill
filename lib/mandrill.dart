@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:codable/codable.dart';
+import 'package:conduit_codable/conduit_codable.dart';
 import 'package:mandrill/client/client.dart';
 import 'package:mandrill/messages.dart';
 

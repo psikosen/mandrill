@@ -22,7 +22,7 @@ class TestMandrillClient extends MandrillClient {
 void main() {
   group('Client', () {
     final apiKey = 'test-api-key';
-    MandrillClient mandrillClient;
+    late MandrillClient mandrillClient;
 
     setUp(() {
       mandrillClient = TestMandrillClient(apiKey);

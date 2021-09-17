@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:mandrill/client/client.dart';
 import 'package:mandrill/mandrill.dart';
 import 'package:mandrill/messages.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../mocks.dart';
@@ -12,9 +12,11 @@ import '../test_data.dart' as test_data;
 
 void main() {
   group('Messages resource', () {
-    Messages messages;
-    MockMandrillClient mockClient;
-
+    late Messages messages;
+    late MockMandrillClient mockClient;
+    setUpAll(() {
+      registerFallbackValue(SentMessagesResponse());
+    });
     setUp(() {
       mockClient = MockMandrillClient();
       messages = Messages(mockClient);
@@ -22,8 +24,8 @@ void main() {
 
     group('.send', () {
       test('sends valid JSON and handles response properly', () async {
-        when(mockClient.call<SentMessagesResponse>(
-                'messages/send', captureAny, captureAny))
+        when(() => mockClient.call<SentMessagesResponse>(
+                'messages/send', captureAny(), captureAny()))
             .thenAnswer((invocation) {
           final response =
               invocation.positionalArguments[2] as SentMessagesResponse;
@@ -35,8 +37,9 @@ void main() {
         final response = await messages.send(message,
             sendAsync: true, sendAt: DateTime.utc(2029, 1, 1));
 
-        final verificationResult = verify(mockClient.call<SentMessagesResponse>(
-            'messages/send', captureAny, captureAny));
+        final verificationResult = verify(() =>
+            mockClient.call<SentMessagesResponse>(
+                'messages/send', captureAny(), captureAny()));
         verificationResult.called(1);
         final body = verificationResult.captured[0];
 
@@ -55,8 +58,8 @@ void main() {
     });
     group('.sendTemplate', () {
       test('sends valid JSON and handles response properly', () async {
-        when(mockClient.call<SentMessagesResponse>(
-                'messages/send-template', captureAny, captureAny))
+        when(() => mockClient.call<SentMessagesResponse>(
+                'messages/send-template', captureAny(), captureAny()))
             .thenAnswer((invocation) {
           final response =
               invocation.positionalArguments[2] as SentMessagesResponse;
@@ -72,9 +75,10 @@ void main() {
           templateContent: {'k1': 'v1', 'k2': 'v2'},
         );
 
-        final verificationResult = verify(mockClient.call<SentMessagesResponse>(
-            'messages/send-template', captureAny, captureAny,
-            responseParser: captureAnyNamed('responseParser')));
+        final verificationResult = verify(() =>
+            mockClient.call<SentMessagesResponse>(
+                'messages/send-template', captureAny(), captureAny(),
+                responseParser: captureAny(named: 'responseParser')));
         verificationResult.called(1);
         final body = verificationResult.captured[0];
 

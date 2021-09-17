@@ -17,11 +17,11 @@ class RecipientType {
 
 class Recipient extends Encoding {
   final String email;
-  final String name;
+  final String? name;
   final RecipientType type;
 
   Recipient({
-    @required this.email,
+    required this.email,
     this.name,
     this.type = RecipientType.to,
   });
@@ -39,11 +39,13 @@ class RecipientMergeVars extends Encoding {
   final String email;
   final Map<String, dynamic> vars;
 
-  RecipientMergeVars({@required this.email, @required this.vars});
+  RecipientMergeVars({required this.email, required this.vars});
 
   @override
   void encode(KeyedArchive object) {
-    object..encode('rcpt', email)..encode('vars', utils.toVarList(vars));
+    object
+      ..encode('rcpt', email)
+      ..encode('vars', utils.toVarList(vars));
   }
 }
 
@@ -51,11 +53,13 @@ class RecipientMetadata extends Encoding {
   final String email;
   final Map<String, dynamic> values;
 
-  RecipientMetadata({@required this.email, @required this.values});
+  RecipientMetadata({required this.email, required this.values});
 
   @override
   void encode(KeyedArchive object) {
-    object..encode('rcpt', email)..encode('values', values);
+    object
+      ..encode('rcpt', email)
+      ..encode('values', values);
   }
 }
 
@@ -66,7 +70,7 @@ class File extends Encoding {
   /// Base64 encoded String
   final String content;
 
-  File({@required this.type, @required this.name, @required this.content});
+  File({required this.type, required this.name, required this.content});
 
   @override
   void encode(KeyedArchive object) {
@@ -79,38 +83,38 @@ class File extends Encoding {
 
 class OutgoingMessage extends Encoding {
   /// This field is ignored if `.sendTemplate()` is used.
-  final String html;
-  final String text;
-  final String subject;
-  final String fromEmail;
-  final String fromName;
-  final List<Recipient> to;
-  final Map<String, String> headers;
-  final bool important;
-  final bool trackOpens;
-  final bool trackClicks;
-  final bool autoText;
-  final bool autoHtml;
-  final bool inlineCss;
-  final bool urlStripQs;
-  final bool preserveRecipients;
-  final bool viewContentLink;
-  final String bccAddress;
-  final String trackingDomain;
-  final String signingDomain;
-  final String returnPathDomain;
-  final bool merge;
-  final String mergeLanguage;
-  final Map<String, dynamic> globalMergeVars;
-  final List<RecipientMergeVars> mergeVars;
-  final List<String> tags;
-  final String subaccount;
-  final List<String> googleAnalyticsDomains;
-  final String googleAnalyticsCampaign;
-  final Map<String, String> metadata;
-  final List<RecipientMetadata> recipientMetadata;
-  final List<File> attachments;
-  final List<File> images;
+  final String? html;
+  final String? text;
+  final String? subject;
+  final String? fromEmail;
+  final String? fromName;
+  final List<Recipient>? to;
+  final Map<String, String>? headers;
+  final bool? important;
+  final bool? trackOpens;
+  final bool? trackClicks;
+  final bool? autoText;
+  final bool? autoHtml;
+  final bool? inlineCss;
+  final bool? urlStripQs;
+  final bool? preserveRecipients;
+  final bool? viewContentLink;
+  final String? bccAddress;
+  final String? trackingDomain;
+  final String? signingDomain;
+  final String? returnPathDomain;
+  final bool? merge;
+  final String? mergeLanguage;
+  final Map<String, dynamic>? globalMergeVars;
+  final List<RecipientMergeVars>? mergeVars;
+  final List<String>? tags;
+  final String? subaccount;
+  final List<String>? googleAnalyticsDomains;
+  final String? googleAnalyticsCampaign;
+  final Map<String, String>? metadata;
+  final List<RecipientMetadata>? recipientMetadata;
+  final List<File>? attachments;
+  final List<File>? images;
 
   OutgoingMessage({
     this.html,
@@ -198,7 +202,7 @@ class SentMessageStatus {
 
   const SentMessageStatus._(this.id);
 
-  static SentMessageStatus fromString(String id) =>
+  static SentMessageStatus? fromString(String? id) =>
       id == null ? null : values.firstWhere((type) => type.id == id);
 }
 
@@ -231,32 +235,33 @@ class SentMessageRejectReason {
 
   const SentMessageRejectReason._(this.id);
 
-  static SentMessageRejectReason fromString(String id) =>
+  static SentMessageRejectReason? fromString(String? id) =>
       id == null ? null : values.firstWhere((type) => type.id == id);
 }
 
 class SentMessagesResponse extends MandrillResponse {
-  List<SentMessage> sentMessages;
+  late List<SentMessage> sentMessages;
 
   @override
   void decode(KeyedArchive object) {
     super.decode(object);
-    sentMessages = object.decodeObjects('list', () => SentMessage());
+    sentMessages =
+        object.decodeObjects('list', () => SentMessage())!.cast<SentMessage>();
   }
 }
 
 class SentMessage extends MandrillResponse {
-  String id;
-  String email;
-  SentMessageStatus status;
-  SentMessageRejectReason rejectReason;
+  String? id;
+  String? email;
+  SentMessageStatus? status;
+  SentMessageRejectReason? rejectReason;
 
   @override
   void decode(KeyedArchive object) {
     super.decode(object);
     id = object.decode('_id');
     email = object.decode('email');
-    status = SentMessageStatus.fromString(object.decode('status') as String);
+    status = SentMessageStatus.fromString(object.decode('status') as String?);
     rejectReason =
         SentMessageRejectReason.fromString(object.decode('reject_reason'));
   }

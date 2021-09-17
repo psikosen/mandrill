@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
-import 'package:codable/codable.dart';
+import 'package:conduit_codable/conduit_codable.dart';
 import 'package:logging/logging.dart';
 import 'package:mandrill/exceptions.dart';
 import 'package:mandrill/messages.dart';
@@ -56,12 +56,12 @@ abstract class MandrillClient {
 
   final MandrillOptions options;
 
-  MandrillClient(this.apiKey, [MandrillOptions options])
+  MandrillClient(this.apiKey, [MandrillOptions? options])
       : options = options ?? const MandrillOptions();
 
   Future<T> call<T extends MandrillResponse>(
       String path, Map body, T responseCoding,
-      {ResponseParser<T> responseParser}) async {
+      {ResponseParser<T>? responseParser}) async {
     final uri = Uri(
       scheme: options.scheme,
       host: options.host,
@@ -112,6 +112,6 @@ abstract class MandrillClient {
   static final DateFormat _dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
 
   /// Formats a [DateTime] the way the Mandrill API expects it.
-  static String formatDate(DateTime date) =>
+  static String? formatDate(DateTime? date) =>
       date == null ? null : _dateFormat.format(date.toUtc());
 }

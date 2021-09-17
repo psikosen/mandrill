@@ -1,10 +1,10 @@
 part of '../../messages.dart';
 
 class ErrorResponse extends MandrillResponse {
-  String status;
-  int code;
-  String name;
-  String message;
+  String? status;
+  int? code;
+  String? name;
+  String? message;
 
   @override
   void decode(KeyedArchive object) {

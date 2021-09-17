@@ -25,8 +25,8 @@ class Messages {
   Future<SentMessagesResponse> send(
     OutgoingMessage message, {
     bool sendAsync = false,
-    String ipPool,
-    DateTime sendAt,
+    String? ipPool,
+    DateTime? sendAt,
   }) async {
     final body = {
       'message': KeyedArchive.archive(message),
@@ -50,10 +50,10 @@ class Messages {
   Future<SentMessagesResponse> sendTemplate(
     String templateName,
     OutgoingMessage message, {
-    Map<String, String> templateContent,
+    Map<String, String>? templateContent,
     bool sendAsync = false,
-    String ipPool,
-    DateTime sendAt,
+    String? ipPool,
+    DateTime? sendAt,
   }) async {
     final body = {
       'template_name': templateName,

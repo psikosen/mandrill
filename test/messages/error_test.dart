@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:codable/codable.dart';
+import 'package:conduit_codable/conduit_codable.dart';
 import 'package:mandrill/messages.dart';
 import 'package:test/test.dart';
 

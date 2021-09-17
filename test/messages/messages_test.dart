@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:codable/codable.dart';
+import 'package:conduit_codable/conduit_codable.dart';
 import 'package:mandrill/messages.dart';
 import 'package:test/test.dart';
 
@@ -165,13 +165,13 @@ void main() {
 
         expect(sentMessage0.id, json[0]['_id']);
         expect(sentMessage0.email, json[0]['email']);
-        expect(sentMessage0.status.id, json[0]['status']);
+        expect(sentMessage0.status!.id, json[0]['status']);
         expect(sentMessage0.rejectReason, isNull);
 
         expect(sentMessage1.id, json[1]['_id']);
         expect(sentMessage1.email, json[1]['email']);
-        expect(sentMessage1.status.id, json[1]['status']);
-        expect(sentMessage1.rejectReason.id, json[1]['reject_reason']);
+        expect(sentMessage1.status!.id, json[1]['status']);
+        expect(sentMessage1.rejectReason!.id, json[1]['reject_reason']);
       });
     });
   });

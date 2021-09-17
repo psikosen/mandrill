@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mandrill/client/client.dart';
 
 class ServerClient extends MandrillClient {
-  ServerClient(String apiKey, [MandrillOptions options])
+  ServerClient(String apiKey, [MandrillOptions? options])
       : super(apiKey, options);
 
   @override
