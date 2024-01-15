@@ -7,7 +7,7 @@ homepage: https://gitlab.com/exitlive/mandrill-dart
 dependencies:
   meta: ^1.7.0
   http: ^0.13.3
-  intl: ^0.17.0
+  intl: ^0.18.0
   logging: ^1.0.2
   conduit_codable: ^3.0.11
 dev_dependencies:
